@@ -4,7 +4,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useState,
   type ReactNode,
 } from "react";
@@ -21,6 +20,12 @@ interface LanguageContextValue {
 
 const translations: Record<Lang, Translations> = { en, fr };
 
+function getInitialLang(): Lang {
+  if (typeof window === "undefined") return "en";
+  const saved = localStorage.getItem("portfolio-lang") as Lang | null;
+  return saved && translations[saved] ? saved : "en";
+}
+
 const LanguageContext = createContext<LanguageContextValue>({
   lang: "en",
   setLang: () => {},
@@ -28,14 +33,7 @@ const LanguageContext = createContext<LanguageContextValue>({
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("portfolio-lang") as Lang | null;
-    if (saved && translations[saved]) {
-      setLangState(saved);
-    }
-  }, []);
+  const [lang, setLangState] = useState<Lang>(getInitialLang);
 
   const setLang = useCallback((l: Lang) => {
     setLangState(l);

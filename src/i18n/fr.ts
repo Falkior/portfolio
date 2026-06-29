@@ -17,6 +17,7 @@ export const fr: Translations = {
       "Durcissement Windows/Linux • Segmentation réseau • Analyse de vulnérabilités • Développement full-stack",
     cta_work: "Voir mes projets",
     cta_contact: "Me contacter",
+    scroll_down: "défiler vers le bas",
   },
   about: {
     title: "À propos",
@@ -76,6 +77,9 @@ export const fr: Translations = {
   },
   education: {
     title: "Formation",
+    status_completed: "TERMINÉ",
+    status_in_progress: "EN COURS",
+    status_upcoming: "À VENIR",
     degrees: [
       {
         degree: "Master Cybersécurité (M1–M2)",

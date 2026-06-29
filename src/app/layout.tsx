@@ -34,7 +34,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen font-sans antialiased">{children}</body>
+      <body className="min-h-screen font-sans antialiased">
+        {children}
+        <div className="fixed inset-0 z-[9997] scanlines" aria-hidden="true" />
+        <div className="grain" aria-hidden="true" />
+        <div className="fixed inset-0 z-[9999] crt-vignette" aria-hidden="true" />
+      </body>
     </html>
   );
 }

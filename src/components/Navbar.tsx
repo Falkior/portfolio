@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/i18n/useLanguage";
+import { useSmoothScroll } from "@/lib/smooth-scroll";
 
 const sections = [
   "about",
@@ -14,6 +15,7 @@ const sections = [
 
 export default function Navbar() {
   const { lang, setLang, t } = useLanguage();
+  const { scrollTo } = useSmoothScroll();
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,8 +36,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const handleScroll = (id: string) => {
+    scrollTo(`#${id}`);
+    setMenuOpen(false);
+  };
+
+  const handleTop = () => {
+    scrollTo(0);
     setMenuOpen(false);
   };
 
@@ -43,16 +50,18 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "bg-[#0a0a0f]/90 shadow-lg shadow-cyan-500/5 backdrop-blur-md"
+          ? "bg-black/90 shadow-lg shadow-matrix/5 backdrop-blur-md"
           : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-mono text-lg font-bold text-cyan-400 transition-colors hover:text-cyan-300"
+          onClick={handleTop}
+          className="group font-mono text-lg font-bold text-matrix transition-colors hover:text-matrix/80"
         >
-          {"<WC />"}
+          ~/william{" "}
+          <span className="inline-block animate-pulse text-dim">$</span>
+          <span className="ml-1 inline-block h-4 w-2 animate-pulse bg-matrix align-middle" />
         </button>
 
         {/* Desktop nav */}
@@ -60,21 +69,24 @@ export default function Navbar() {
           {sections.map((id) => (
             <button
               key={id}
-              onClick={() => scrollTo(id)}
-              className={`font-mono text-sm transition-colors ${
+              onClick={() => handleScroll(id)}
+              className={`group font-mono text-sm transition-colors ${
                 active === id
-                  ? "text-cyan-400"
-                  : "text-gray-400 hover:text-cyan-300"
+                  ? "text-matrix"
+                  : "text-dim hover:text-matrix"
               }`}
             >
+              <span className="inline-block w-0 overflow-hidden text-matrix transition-all group-hover:w-3">
+                {"> "}
+              </span>
               {t.nav[id as keyof typeof t.nav]}
             </button>
           ))}
           <button
             onClick={() => setLang(lang === "en" ? "fr" : "en")}
-            className="rounded border border-cyan-500/30 px-3 py-1 font-mono text-xs text-cyan-400 transition-all hover:border-cyan-400 hover:bg-cyan-400/10"
+            className="rounded border border-matrix/30 px-3 py-1 font-mono text-xs text-matrix transition-all hover:border-matrix hover:bg-matrix/10"
           >
-            {lang === "en" ? "FR" : "EN"}
+            {lang === "en" ? "[FR]" : "[EN]"}
           </button>
         </div>
 
@@ -82,9 +94,9 @@ export default function Navbar() {
         <div className="flex items-center gap-4 md:hidden">
           <button
             onClick={() => setLang(lang === "en" ? "fr" : "en")}
-            className="rounded border border-cyan-500/30 px-3 py-1 font-mono text-xs text-cyan-400"
+            className="rounded border border-matrix/30 px-3 py-1 font-mono text-xs text-matrix"
           >
-            {lang === "en" ? "FR" : "EN"}
+            {lang === "en" ? "[FR]" : "[EN]"}
           </button>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -92,17 +104,17 @@ export default function Navbar() {
             aria-label="Toggle menu"
           >
             <span
-              className={`block h-0.5 w-6 bg-cyan-400 transition-transform ${
+              className={`block h-0.5 w-6 bg-matrix transition-transform ${
                 menuOpen ? "translate-y-2 rotate-45" : ""
               }`}
             />
             <span
-              className={`block h-0.5 w-6 bg-cyan-400 transition-opacity ${
+              className={`block h-0.5 w-6 bg-matrix transition-opacity ${
                 menuOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`block h-0.5 w-6 bg-cyan-400 transition-transform ${
+              className={`block h-0.5 w-6 bg-matrix transition-transform ${
                 menuOpen ? "-translate-y-2 -rotate-45" : ""
               }`}
             />
@@ -112,17 +124,18 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="border-t border-cyan-500/10 bg-[#0a0a0f]/95 backdrop-blur-md md:hidden">
+        <div className="border-t border-matrix/10 bg-black/95 backdrop-blur-md md:hidden">
           {sections.map((id) => (
             <button
               key={id}
-              onClick={() => scrollTo(id)}
+              onClick={() => handleScroll(id)}
               className={`block w-full px-6 py-3 text-left font-mono text-sm transition-colors ${
                 active === id
-                  ? "text-cyan-400"
-                  : "text-gray-400 hover:text-cyan-300"
+                  ? "text-matrix"
+                  : "text-dim hover:text-matrix"
               }`}
             >
+              <span className="text-matrix">{"> "}</span>
               {t.nav[id as keyof typeof t.nav]}
             </button>
           ))}

@@ -15,6 +15,7 @@ export const en = {
       "Windows/Linux hardening • Network segmentation • Vulnerability analysis • Full-stack development",
     cta_work: "View my work",
     cta_contact: "Contact me",
+    scroll_down: "scroll down",
   },
   about: {
     title: "About Me",
@@ -74,6 +75,9 @@ export const en = {
   },
   education: {
     title: "Education",
+    status_completed: "COMPLETED",
+    status_in_progress: "IN PROGRESS",
+    status_upcoming: "UPCOMING",
     degrees: [
       {
         degree: "Master Cybersecurity (M1–M2)",
