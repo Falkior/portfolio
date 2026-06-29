@@ -42,9 +42,9 @@ export const fr: Translations = {
     jobs: [
       {
         role: "Stage Développeur Full-stack",
-        company: "WEBNATIONS",
+        company: "RECUBE",
         location: "Montpellier, France",
-        dates: "Avr 2026 – Présent",
+        dates: "Avr 2026 – Juin 2026",
         bullets: [
           "Développement d’une application web générant automatiquement des fichiers JSON et archives ZIP compatibles Minecraft Bedrock, avec upload et validation de textures.",
           "Utilisation d’outils collaboratifs en environnement professionnel (Notion, Slack).",

@@ -40,9 +40,9 @@ export const en = {
     jobs: [
       {
         role: "Full-stack Developer Intern",
-        company: "WEBNATIONS",
+        company: "RECUBE",
         location: "Montpellier, France",
-        dates: "Apr 2026 – Present",
+        dates: "Apr 2026 – Jun 2026",
         bullets: [
           "Built a web application that auto-generates JSON files and ZIP archives compatible with Minecraft Bedrock, with texture upload and validation.",
           "Worked with collaborative tools in a professional environment (Notion, Slack).",

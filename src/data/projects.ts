@@ -29,10 +29,10 @@ export const projects: Project[] = [
     id: "portfolio",
     title: "Portfolio Website",
     description:
-      "My personal portfolio built with Next.js, TypeScript, and Tailwind CSS. Features a dark cyber-themed design, bilingual EN/FR support, scroll animations with Framer Motion, and a responsive layout.",
+      "My personal portfolio with a Matrix/hacker aesthetic. Features a falling Matrix rain canvas, GSAP-powered scroll animations, Lenis smooth scrolling, terminal-style UI, glitch effects, custom cursor, CRT scanlines, and bilingual FR/EN support.",
     descriptionFr:
-      "Mon portfolio personnel construit avec Next.js, TypeScript et Tailwind CSS. Design sombre sur le thème cyber, support bilingue EN/FR, animations au scroll avec Framer Motion et mise en page responsive.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      "Mon portfolio personnel avec une esthétique Matrix/hacker. Inclut une pluie de caractères Matrix en canvas, animations GSAP au scroll, défilement fluide Lenis, interface style terminal, effets glitch, curseur personnalisé, scanlines CRT et support bilingue FR/EN.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Lenis", "Framer Motion"],
     github: "https://github.com/Falkior/portfolio",
     featured: true,
   },
