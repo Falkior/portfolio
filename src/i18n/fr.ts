@@ -34,7 +34,7 @@ export const fr: Translations = {
     availability_detail: "Master Cybersécurité — M1/M2",
     driving: "Permis B",
     driving_label: "Mobilité",
-    remote: "Télétravail ou présentiel",
+    remote: "Présentiel ou télétravail",
     remote_label: "Mode de travail",
   },
   skills: {

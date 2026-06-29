@@ -70,7 +70,7 @@ export default function Projects() {
             className="project-card group border-t border-line py-10 transition-colors hover:bg-card/30"
           >
             <div className="grid gap-8 lg:grid-cols-12">
-              <div className="lg:col-span-5">
+              <div className="hidden lg:col-span-5 lg:block">
                 {project.image && (
                   <div className="relative aspect-[16/10] overflow-hidden rounded border border-line bg-card-alt">
                     <Image

@@ -32,7 +32,7 @@ export const en = {
     availability_detail: "Master Cybersecurity — M1/M2",
     driving: "Driver's license (Permis B)",
     driving_label: "Mobility",
-    remote: "Remote or on-site",
+    remote: "On-site or remote",
     remote_label: "Work mode",
   },
   skills: {
