@@ -49,6 +49,10 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
     lenisRef.current = instance;
 
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
     return () => {
       instance.destroy();
       lenisRef.current = null;

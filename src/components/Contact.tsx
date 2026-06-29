@@ -17,7 +17,7 @@ export default function Contact() {
     () => {
       if (reducedMotion) return;
 
-      const lines = contentRef.current?.querySelectorAll(".contact-line");
+      const lines = contentRef.current?.querySelectorAll(".terminal-line");
       if (!lines) return;
 
       gsap.from(lines, {
