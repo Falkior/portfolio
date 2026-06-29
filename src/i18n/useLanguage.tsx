@@ -21,15 +21,15 @@ interface LanguageContextValue {
 const translations: Record<Lang, Translations> = { en, fr };
 
 function getInitialLang(): Lang {
-  if (typeof window === "undefined") return "en";
+  if (typeof window === "undefined") return "fr";
   const saved = localStorage.getItem("portfolio-lang") as Lang | null;
-  return saved && translations[saved] ? saved : "en";
+  return saved && translations[saved] ? saved : "fr";
 }
 
 const LanguageContext = createContext<LanguageContextValue>({
-  lang: "en",
+  lang: "fr",
   setLang: () => {},
-  t: en,
+  t: fr,
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
