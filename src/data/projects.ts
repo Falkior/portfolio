@@ -33,6 +33,7 @@ export const projects: Project[] = [
     descriptionFr:
       "Mon portfolio personnel avec une esthétique éditoriale moderne. Inclut une palette chaude, un duo typographique Fraunces/Inter, révélations GSAP au scroll, défilement fluide Lenis, curseur personnalisé affiné, marquee infini des compétences et support bilingue FR/EN.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Lenis", "Framer Motion"],
+    image: "/projects/portfolio.png",
     github: "https://github.com/Falkior/portfolio",
     featured: true,
   },

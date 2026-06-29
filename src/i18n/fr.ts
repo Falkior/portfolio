@@ -21,8 +21,11 @@ export const fr: Translations = {
   },
   about: {
     title: "À propos",
-    description:
-      "Étudiant en cybersécurité avec une expérience concrète en administration systèmes et développement full-stack. Compétent en durcissement Windows/Linux, gestion Active Directory & GPO/MFA, segmentation réseau (VLAN/ACL), gestion des correctifs et supervision. À l’aise en production, rigoureux, esprit d’analyse, travail en équipe.",
+    lead: "Étudiant en cybersécurité avec une expérience concrète en administration systèmes et développement full-stack.",
+    paragraphs: [
+      "Compétent en durcissement Windows/Linux, gestion Active Directory & GPO/MFA, segmentation réseau (VLAN/ACL), gestion des correctifs et supervision.",
+      "À l’aise en production, rigoureux, esprit d’analyse, travail en équipe.",
+    ],
     location: "Rennes, France",
     location_label: "Localisation",
     languages: "Français (Natif) • Anglais (C1)",
@@ -70,7 +73,7 @@ export const fr: Translations = {
         role: "Stage Informaticien",
         company: "Easy Cash",
         location: "Dinan, France",
-        dates: "2020",
+        dates: "Janv. 2020 – Mars 2020",
         bullets: [
           "Gestion de la maintenance préventive et corrective d’une vingtaine d’ordinateurs.",
           "Installation et configuration de logiciels et systèmes d’exploitation.",

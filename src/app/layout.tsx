@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${inter.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}
     >
       <body className="min-h-screen bg-bg font-sans text-ink antialiased">

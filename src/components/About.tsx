@@ -47,8 +47,18 @@ export default function About() {
       <div ref={contentRef} className="grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <p className="about-line text-2xl leading-snug text-ink md:text-3xl lg:text-4xl">
-            {t.about.description}
+            {t.about.lead}
           </p>
+          <div className="about-line mt-6 max-w-[60ch] space-y-4">
+            {t.about.paragraphs.map((paragraph, index) => (
+              <p
+                key={index}
+                className="text-base leading-relaxed text-ink/70 md:text-lg"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </div>
 
         <div className="lg:col-span-5">
