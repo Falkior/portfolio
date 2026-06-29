@@ -5,8 +5,6 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { useLanguage } from "@/i18n/useLanguage";
 import { useSmoothScroll } from "@/lib/smooth-scroll";
-import MatrixRain from "@/components/effects/MatrixRain";
-import GlitchText from "@/components/effects/GlitchText";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface HeroProps {
@@ -18,9 +16,9 @@ export default function Hero({ loaded = false }: HeroProps) {
   const { scrollTo } = useSmoothScroll();
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
-  const promptRef = useRef<HTMLDivElement>(null);
-  const nameRef = useRef<HTMLDivElement>(null);
-  const subtitleRef = useRef<HTMLDivElement>(null);
+  const greetingRef = useRef<HTMLSpanElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const roleRef = useRef<HTMLParagraphElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -29,7 +27,7 @@ export default function Hero({ loaded = false }: HeroProps) {
     () => {
       if (reducedMotion) {
         gsap.set(
-          [promptRef.current, nameRef.current, subtitleRef.current, taglineRef.current, ctaRef.current, scrollRef.current],
+          [greetingRef.current, nameRef.current, roleRef.current, taglineRef.current, ctaRef.current, scrollRef.current],
           { opacity: 1 }
         );
         return;
@@ -39,37 +37,38 @@ export default function Hero({ loaded = false }: HeroProps) {
         const tl = gsap.timeline({ delay: loaded ? 0.2 : 0 });
 
         tl.fromTo(
-          promptRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.3 }
+          greetingRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
         )
           .fromTo(
             ".hero-name-char",
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, stagger: 0.03, duration: 0.5, ease: "power2.out" }
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, stagger: 0.025, duration: 0.7, ease: "power3.out" },
+            "-=0.35"
           )
           .fromTo(
-            ".hero-subtitle-char",
-            { opacity: 0 },
-            { opacity: 1, stagger: 0.02, duration: 0.4 },
-            "-=0.2"
+            roleRef.current,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+            "-=0.4"
           )
           .fromTo(
             taglineRef.current,
             { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.6 },
-            "-=0.2"
+            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+            "-=0.35"
           )
           .fromTo(
             ".hero-cta",
             { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 },
+            { opacity: 1, y: 0, stagger: 0.1, duration: 0.5, ease: "power2.out" },
             "-=0.3"
           )
           .fromTo(
             scrollRef.current,
             { opacity: 0 },
-            { opacity: 1, duration: 0.6 },
+            { opacity: 1, duration: 0.6, ease: "power2.out" },
             "-=0.2"
           );
       }, sectionRef);
@@ -79,107 +78,61 @@ export default function Hero({ loaded = false }: HeroProps) {
     { scope: sectionRef, dependencies: [loaded, reducedMotion] }
   );
 
-  const handleMagneticMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const btn = e.currentTarget;
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    gsap.to(btn, {
-      x: x * 0.3,
-      y: y * 0.3,
-      duration: 0.3,
-      ease: "power2.out",
-    });
-  };
-
-  const handleMagneticLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
-    gsap.to(e.currentTarget, {
-      x: 0,
-      y: 0,
-      duration: 0.5,
-      ease: "elastic.out(1, 0.3)",
-    });
-  };
-
   const nameChars = t.hero.name.split("");
-  const subtitleChars = t.hero.subtitle.split("");
 
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
+      className="relative flex min-h-screen items-center px-6 md:px-12 lg:px-24"
     >
-      <MatrixRain opacity={0.2} speed={0.8} density={0.9} className="absolute inset-0" />
+      <div className="relative z-10 w-full max-w-6xl pt-20">
+        <span
+          ref={greetingRef}
+          className="eyebrow mb-6 block opacity-0"
+        >
+          {t.hero.greeting}
+        </span>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black" />
+        <h1 ref={nameRef} className="hero-name mb-8 opacity-0" aria-label={t.hero.name}>
+          {nameChars.map((char, i) => (
+            <span
+              key={i}
+              className="hero-name-char inline-block"
+              style={{ opacity: reducedMotion ? 1 : 0 }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </span>
+          ))}
+        </h1>
 
-      <div className="relative z-10 w-full max-w-4xl">
-        <div ref={promptRef} className="mb-4 font-mono text-sm text-dim opacity-0">
-          <span className="text-matrix">$</span> whoami
-        </div>
-
-        <div ref={nameRef} className="mb-6 opacity-0">
-          <GlitchText
-            text={t.hero.name}
-            intensity="medium"
-            as="h1"
-            className="sr-only"
-          />
-          <span
-            className="text-5xl font-bold tracking-tight text-white md:text-7xl"
-            aria-label={t.hero.name}
-          >
-            {nameChars.map((char, i) => (
-              <span
-                key={i}
-                className="hero-name-char inline-block"
-                style={{ opacity: reducedMotion ? 1 : 0 }}
-              >
-                {char === " " ? "\u00A0" : char}
-              </span>
-            ))}
-          </span>
-        </div>
-
-        <div ref={subtitleRef} className="mb-6 opacity-0">
-          <span className="typing-text font-mono text-lg text-matrix md:text-xl">
-            {subtitleChars.map((char, i) => (
-              <span
-                key={i}
-                className="hero-subtitle-char inline-block"
-                style={{ opacity: reducedMotion ? 1 : 0 }}
-              >
-                {char === " " ? "\u00A0" : char}
-              </span>
-            ))}
-          </span>
-        </div>
+        <p
+          ref={roleRef}
+          className="mb-6 max-w-2xl font-mono text-lg text-muted opacity-0 md:text-xl"
+        >
+          {t.hero.subtitle}
+        </p>
 
         <p
           ref={taglineRef}
-          className="mb-10 max-w-2xl text-sm leading-relaxed text-gray-400 md:text-base opacity-0"
+          className="mb-12 max-w-xl text-base leading-relaxed text-ink/80 opacity-0 md:text-lg"
         >
           {t.hero.tagline}
         </p>
 
-        <div ref={ctaRef} className="flex flex-col items-start gap-4 sm:flex-row">
+        <div ref={ctaRef} className="flex flex-wrap items-center gap-8 opacity-0">
           <button
             onClick={() => scrollTo("#projects")}
-            onMouseMove={handleMagneticMove}
-            onMouseLeave={handleMagneticLeave}
-            className="hero-cta group relative overflow-hidden rounded border border-matrix/50 bg-matrix/10 px-6 py-3 font-mono text-sm text-matrix transition-all hover:bg-matrix/20 hover:shadow-[0_0_20px_rgba(0,255,65,0.2)]"
+            className="hero-cta link-wipe-static font-mono text-sm"
           >
-            <span className="relative z-10">{"> ls ./projects"}</span>
-            <span className="absolute inset-0 -translate-x-full bg-matrix/10 transition-transform duration-300 group-hover:translate-x-0" />
+            {t.hero.cta_work}
+            <span aria-hidden="true">↓</span>
           </button>
           <button
             onClick={() => scrollTo("#contact")}
-            onMouseMove={handleMagneticMove}
-            onMouseLeave={handleMagneticLeave}
-            className="hero-cta group relative overflow-hidden rounded border border-matrix/30 px-6 py-3 font-mono text-sm text-dim transition-all hover:border-matrix/50 hover:text-matrix"
+            className="hero-cta link-wipe font-mono text-sm text-muted hover:text-ink"
           >
-            <span className="relative z-10">{"> ssh contact@william"}</span>
-            <span className="absolute inset-0 -translate-x-full bg-matrix/5 transition-transform duration-300 group-hover:translate-x-0" />
+            {t.hero.cta_contact}
+            <span aria-hidden="true">↗</span>
           </button>
         </div>
       </div>
@@ -190,11 +143,11 @@ export default function Hero({ loaded = false }: HeroProps) {
       >
         <button
           onClick={() => scrollTo("#about")}
-          className="group flex flex-col items-center gap-2 font-mono text-xs text-dim transition-colors hover:text-matrix"
+          className="group flex flex-col items-center gap-2 text-muted transition-colors hover:text-ink"
+          aria-label={t.hero.scroll_down}
         >
-          <span>[{t.hero.scroll_down}]</span>
-          <span className="h-8 w-5 rounded-full border border-matrix/30 p-1">
-            <span className="block h-1.5 w-1.5 animate-bounce rounded-full bg-matrix" />
+          <span className="h-8 w-5 rounded-full border border-line p-1">
+            <span className="block h-1.5 w-1.5 animate-bounce rounded-full bg-ink" />
           </span>
         </button>
       </div>

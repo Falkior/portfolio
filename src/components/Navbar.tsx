@@ -50,18 +50,16 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "bg-black/90 shadow-lg shadow-matrix/5 backdrop-blur-md"
+          ? "bg-bg/90 shadow-sm backdrop-blur-md"
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <button
           onClick={handleTop}
-          className="group font-mono text-lg font-bold text-matrix transition-colors hover:text-matrix/80"
+          className="font-display text-xl tracking-tight text-ink transition-opacity hover:opacity-70"
         >
-          ~/william{" "}
-          <span className="inline-block animate-pulse text-dim">$</span>
-          <span className="ml-1 inline-block h-4 w-2 animate-pulse bg-matrix align-middle" />
+          William Couedon
         </button>
 
         {/* Desktop nav */}
@@ -70,33 +68,35 @@ export default function Navbar() {
             <button
               key={id}
               onClick={() => handleScroll(id)}
-              className={`group font-mono text-sm transition-colors ${
+              className={`group relative font-mono text-sm transition-colors ${
                 active === id
-                  ? "text-matrix"
-                  : "text-dim hover:text-matrix"
+                  ? "text-ink"
+                  : "text-muted hover:text-ink"
               }`}
             >
-              <span className="inline-block w-0 overflow-hidden text-matrix transition-all group-hover:w-3">
-                {"> "}
-              </span>
               {t.nav[id as keyof typeof t.nav]}
+              <span
+                className={`absolute -bottom-1 left-0 h-px bg-accent transition-all ${
+                  active === id ? "w-full" : "w-0 group-hover:w-full"
+                }`}
+              />
             </button>
           ))}
           <button
             onClick={() => setLang(lang === "en" ? "fr" : "en")}
-            className="rounded border border-matrix/30 px-3 py-1 font-mono text-xs text-matrix transition-all hover:border-matrix hover:bg-matrix/10"
+            className="font-mono text-xs text-muted transition-colors hover:text-accent"
           >
-            {lang === "en" ? "[FR]" : "[EN]"}
+            {lang === "en" ? "FR" : "EN"}
           </button>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile controls */}
         <div className="flex items-center gap-4 md:hidden">
           <button
             onClick={() => setLang(lang === "en" ? "fr" : "en")}
-            className="rounded border border-matrix/30 px-3 py-1 font-mono text-xs text-matrix"
+            className="font-mono text-xs text-muted"
           >
-            {lang === "en" ? "[FR]" : "[EN]"}
+            {lang === "en" ? "FR" : "EN"}
           </button>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -104,17 +104,17 @@ export default function Navbar() {
             aria-label="Toggle menu"
           >
             <span
-              className={`block h-0.5 w-6 bg-matrix transition-transform ${
+              className={`block h-px w-6 bg-ink transition-transform ${
                 menuOpen ? "translate-y-2 rotate-45" : ""
               }`}
             />
             <span
-              className={`block h-0.5 w-6 bg-matrix transition-opacity ${
+              className={`block h-px w-6 bg-ink transition-opacity ${
                 menuOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`block h-0.5 w-6 bg-matrix transition-transform ${
+              className={`block h-px w-6 bg-ink transition-transform ${
                 menuOpen ? "-translate-y-2 -rotate-45" : ""
               }`}
             />
@@ -124,18 +124,17 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="border-t border-matrix/10 bg-black/95 backdrop-blur-md md:hidden">
+        <div className="border-t border-line bg-bg/95 backdrop-blur-md md:hidden">
           {sections.map((id) => (
             <button
               key={id}
               onClick={() => handleScroll(id)}
               className={`block w-full px-6 py-3 text-left font-mono text-sm transition-colors ${
                 active === id
-                  ? "text-matrix"
-                  : "text-dim hover:text-matrix"
+                  ? "text-accent"
+                  : "text-muted hover:text-ink"
               }`}
             >
-              <span className="text-matrix">{"> "}</span>
               {t.nav[id as keyof typeof t.nav]}
             </button>
           ))}

@@ -22,11 +22,15 @@ export const en = {
     description:
       "Cybersecurity student with hands-on experience in IT administration and full-stack development. Skilled in Windows/Linux hardening, Active Directory & GPO/MFA management, network segmentation (VLAN/ACL), patch management, and supervision. Comfortable in production environments, rigorous, analytical, and a strong team player.",
     location: "Rennes, France",
+    location_label: "Location",
     languages: "French (Native) • English (C1)",
+    languages_label: "Languages",
     availability: "Seeking alternance 2026–2028",
     availability_detail: "Master Cybersecurity — M1/M2",
     driving: "Driver's license (Permis B)",
+    driving_label: "Mobility",
     remote: "Remote or on-site",
+    remote_label: "Work mode",
   },
   skills: {
     title: "Skills",

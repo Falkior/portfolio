@@ -36,51 +36,42 @@ export default function Experience() {
   );
 
   return (
-    <SectionWrapper id="experience">
-      <h2 className="section-title reveal">{t.experience.title}</h2>
-
-      <div ref={containerRef} className="relative">
-        <div className="absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b from-matrix/50 via-matrix/20 to-transparent md:left-1/2 md:block" />
-
-        <div className="space-y-12">
-          {t.experience.jobs.map((job, idx) => (
-            <div
-              key={idx}
-              className={`experience-item relative md:w-1/2 ${
-                idx % 2 === 0 ? "md:pr-12" : "md:ml-auto md:pl-12"
-              }`}
-            >
-              <div
-                className={`absolute top-2 hidden h-3 w-3 rounded-full border-2 border-matrix bg-black shadow-[0_0_10px_rgba(0,255,65,0.5)] md:block ${
-                  idx % 2 === 0 ? "-right-1.5" : "-left-1.5"
-                }`}
-              />
-
-              <div className="rounded-lg border border-white/5 bg-white/[0.02] p-6 transition-all hover:border-matrix/20 hover:bg-white/[0.04]">
-                <div className="mb-1 font-mono text-xs text-matrix">
-                  [{job.dates}]
-                </div>
-                <h3 className="mb-1 text-lg font-semibold text-white">
+    <SectionWrapper id="experience" index="03" label={t.experience.title}>
+      <div ref={containerRef} className="space-y-0">
+        {t.experience.jobs.map((job, idx) => (
+          <div
+            key={idx}
+            className="experience-item group border-t border-line py-8 transition-colors hover:bg-card/30"
+          >
+            <div className="grid gap-6 lg:grid-cols-12">
+              <div className="lg:col-span-3">
+                <span className="font-mono text-xs uppercase tracking-wider text-muted">
+                  {job.dates}
+                </span>
+              </div>
+              <div className="lg:col-span-9">
+                <h3 className="mb-1 font-display text-xl text-ink md:text-2xl">
                   {job.role}
                 </h3>
-                <p className="mb-4 text-sm text-dim">
+                <p className="mb-4 text-sm text-muted">
                   {job.company} — {job.location}
                 </p>
                 <ul className="space-y-2">
                   {job.bullets.map((bullet, bIdx) => (
                     <li
                       key={bIdx}
-                      className="flex items-start gap-2 font-mono text-sm text-gray-300"
+                      className="flex items-start gap-3 text-sm leading-relaxed text-ink/80"
                     >
-                      <span className="mt-1.5 text-matrix">{">"}</span>
+                      <span className="mt-2 h-px w-4 flex-shrink-0 bg-accent" />
                       {bullet}
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+        <div className="border-t border-line" />
       </div>
     </SectionWrapper>
   );

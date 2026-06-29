@@ -5,18 +5,15 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { useLanguage } from "@/i18n/useLanguage";
 import SectionWrapper from "./SectionWrapper";
-import TerminalWindow from "@/components/effects/TerminalWindow";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const skillCategories = [
   {
     key: "development" as const,
-    file: "development.sh",
     items: ["Java", "C++", "Python", "HTML/CSS", "TypeScript", "SQL"],
   },
   {
     key: "systems" as const,
-    file: "systems.sh",
     items: [
       "Windows Server",
       "Linux (Debian/Ubuntu)",
@@ -30,7 +27,6 @@ const skillCategories = [
   },
   {
     key: "cybersecurity" as const,
-    file: "security.sh",
     items: [
       "Wireshark",
       "nmap",
@@ -43,7 +39,6 @@ const skillCategories = [
   },
   {
     key: "tools" as const,
-    file: "tools.sh",
     items: [
       "VS Code",
       "Eclipse",
@@ -60,79 +55,83 @@ export default function Skills() {
   const { t } = useLanguage();
   const reducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       if (reducedMotion) return;
 
-      const windows = containerRef.current?.querySelectorAll(".skill-window");
-      if (!windows) return;
+      const groups = containerRef.current?.querySelectorAll(".skill-group");
+      if (!groups) return;
 
-      windows.forEach((win) => {
-        const lines = win.querySelectorAll(".skill-line");
-        const progress = win.querySelector(".skill-progress");
+      gsap.from(groups, {
+        opacity: 0,
+        y: 40,
+        stagger: 0.12,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: win,
-            start: "top 80%",
-            once: true,
-          },
-        });
-
-        if (progress) {
-          tl.from(progress, {
-            width: 0,
-            duration: 0.8,
-            ease: "power2.out",
+      if (marqueeRef.current) {
+        const track = marqueeRef.current.querySelector(".marquee-track");
+        if (track) {
+          gsap.to(track, {
+            xPercent: -50,
+            duration: 40,
+            ease: "none",
+            repeat: -1,
           });
         }
-
-        tl.from(
-          lines,
-          {
-            opacity: 0,
-            x: -10,
-            stagger: 0.05,
-            duration: 0.4,
-            ease: "power2.out",
-          },
-          "-=0.4"
-        );
-      });
+      }
     },
     { scope: containerRef }
   );
 
-  return (
-    <SectionWrapper id="skills">
-      <h2 className="section-title reveal">{t.skills.title}</h2>
+  const marqueeItems = skillCategories.flatMap((cat) => cat.items);
 
-      <div ref={containerRef} className="grid gap-6 md:grid-cols-2">
-        {skillCategories.map((cat) => (
-          <TerminalWindow
-            key={cat.key}
-            title={cat.file}
-            className="skill-window reveal"
-          >
-            <div className="mb-3 flex items-center gap-2 text-xs text-dim">
-              <span>$</span>
-              <span>./load_skills.sh --category {cat.key}</span>
+  return (
+    <SectionWrapper id="skills" index="02" label={t.skills.title}>
+      <div ref={containerRef}>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {skillCategories.map((cat) => (
+            <div key={cat.key} className="skill-group">
+              <h3 className="mb-4 font-mono text-xs uppercase tracking-wider text-muted">
+                {t.skills[cat.key]}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {cat.items.map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-block border border-line bg-card px-3 py-1.5 font-mono text-xs text-ink transition-colors hover:border-accent/30 hover:text-accent"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="mb-4 h-1 w-full overflow-hidden rounded-full bg-white/5">
-              <div className="skill-progress h-full w-full rounded-full bg-matrix/60" />
-            </div>
-            <div className="space-y-1.5">
-              {cat.items.map((skill) => (
-                <div key={skill} className="skill-line flex items-center gap-2 font-mono text-xs text-gray-300">
-                  <span className="text-matrix">{">"}</span>
-                  <span className="text-dim">{skill}</span>
-                  <span className="ml-auto text-[10px] text-matrix/60">loaded</span>
-                </div>
-              ))}
-            </div>
-          </TerminalWindow>
-        ))}
+          ))}
+        </div>
+
+        <div
+          ref={marqueeRef}
+          className="relative mt-20 overflow-hidden border-y border-line py-4"
+        >
+          <div className="marquee-track flex w-max items-center gap-8">
+            {[...marqueeItems, ...marqueeItems].map((skill, i) => (
+              <span key={`${skill}-${i}`} className="flex items-center gap-8">
+                <span className="whitespace-nowrap font-display text-3xl text-ink/10 md:text-5xl">
+                  {skill}
+                </span>
+                <span className="h-1.5 w-1.5 rounded-full bg-accent/40" />
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </SectionWrapper>
   );

@@ -10,9 +10,19 @@ interface Props {
   children: ReactNode;
   id: string;
   className?: string;
+  index?: string;
+  label?: string;
+  divider?: boolean;
 }
 
-export default function SectionWrapper({ children, id, className = "" }: Props) {
+export default function SectionWrapper({
+  children,
+  id,
+  className = "",
+  index,
+  label,
+  divider = true,
+}: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
 
@@ -47,7 +57,16 @@ export default function SectionWrapper({ children, id, className = "" }: Props) 
       id={id}
       className={`px-6 py-24 md:px-12 lg:px-24 ${className}`}
     >
-      <div className="mx-auto max-w-6xl">{children}</div>
+      <div className="mx-auto max-w-6xl">
+        {divider && <div className="mb-16 border-t border-line" />}
+        {(index || label) && (
+          <div className="mb-8 flex items-baseline gap-4 reveal">
+            {index && <span className="eyebrow text-accent">{index}</span>}
+            {label && <span className="eyebrow">{label}</span>}
+          </div>
+        )}
+        {children}
+      </div>
     </section>
   );
 }

@@ -2,15 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const isFinePointer = window.matchMedia("(pointer: fine)").matches;
-    if (!isFinePointer) return;
+    if (!isFinePointer || reducedMotion) return;
 
     const dot = dotRef.current;
     const ring = ringRef.current;
@@ -55,7 +57,7 @@ export default function CustomCursor() {
         el.removeEventListener("mouseleave", handleLeave);
       });
     };
-  }, []);
+  }, [reducedMotion]);
 
   if (!visible) return null;
 
@@ -63,12 +65,12 @@ export default function CustomCursor() {
     <>
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 z-[10000] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-matrix"
+        className="fixed top-0 left-0 z-[10000] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink"
         style={{ pointerEvents: "none" }}
       />
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 z-[10000] h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full border border-matrix/50"
+        className="fixed top-0 left-0 z-[10000] h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full border border-ink/30"
         style={{ pointerEvents: "none" }}
       />
     </>

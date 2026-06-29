@@ -21,8 +21,8 @@ export default function Education() {
 
       gsap.from(items, {
         opacity: 0,
-        x: -20,
-        stagger: 0.1,
+        y: 30,
+        stagger: 0.12,
         duration: 0.6,
         ease: "power2.out",
         scrollTrigger: {
@@ -36,39 +36,45 @@ export default function Education() {
   );
 
   const getStatus = (idx: number) => {
-    if (idx === 0) return `[${t.education.status_upcoming}]`;
-    if (idx === 1) return `[${t.education.status_in_progress}]`;
-    return `[${t.education.status_completed}]`;
+    if (idx === 0) return t.education.status_upcoming;
+    if (idx === 1) return t.education.status_in_progress;
+    return t.education.status_completed;
   };
 
+  const isHighlight = (idx: number) => idx === 0 || idx === 1;
+
   return (
-    <SectionWrapper id="education">
-      <h2 className="section-title reveal">{t.education.title}</h2>
-
-      <div ref={containerRef} className="relative ml-4">
-        <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-matrix/50 via-matrix/20 to-transparent" />
-
-        <div className="space-y-8">
-          {t.education.degrees.map((deg, idx) => (
-            <div key={idx} className="education-item relative pl-8">
-              <div className="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full border-2 border-matrix bg-black shadow-[0_0_10px_rgba(0,255,65,0.5)]" />
-
-              <div className="font-mono text-xs text-matrix">[{deg.dates}]</div>
-              <h3 className="mt-1 text-base font-semibold text-white">
+    <SectionWrapper id="education" index="04" label={t.education.title}>
+      <div ref={containerRef} className="space-y-0">
+        {t.education.degrees.map((deg, idx) => (
+          <div
+            key={idx}
+            className="education-item flex flex-col justify-between gap-4 border-t border-line py-6 md:flex-row md:items-center"
+          >
+            <div className="md:max-w-2xl">
+              <span className="font-mono text-xs uppercase tracking-wider text-muted">
+                {deg.dates}
+              </span>
+              <h3 className="mt-1 font-display text-lg text-ink md:text-xl">
                 {deg.degree}
               </h3>
-              <p className="text-sm text-dim">{deg.school}</p>
-              <div className="mt-2 flex items-center gap-2">
-                <span className="inline-block rounded border border-matrix/20 bg-matrix/5 px-2 py-0.5 font-mono text-[10px] text-matrix">
-                  {getStatus(idx)}
-                </span>
-                {"note" in deg && deg.note && (
-                  <span className="text-xs text-dim">{deg.note}</span>
-                )}
-              </div>
+              <p className="text-sm text-muted">{deg.school}</p>
+              {"note" in deg && deg.note && (
+                <p className="mt-1 text-xs text-muted">{deg.note}</p>
+              )}
             </div>
-          ))}
-        </div>
+            <span
+              className={`self-start rounded border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider md:self-center ${
+                isHighlight(idx)
+                  ? "border-accent/20 bg-accent/5 text-accent"
+                  : "border-line bg-card text-muted"
+              }`}
+            >
+              {getStatus(idx)}
+            </span>
+          </div>
+        ))}
+        <div className="border-t border-line" />
       </div>
     </SectionWrapper>
   );

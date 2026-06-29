@@ -24,11 +24,15 @@ export const fr: Translations = {
     description:
       "Étudiant en cybersécurité avec une expérience concrète en administration systèmes et développement full-stack. Compétent en durcissement Windows/Linux, gestion Active Directory & GPO/MFA, segmentation réseau (VLAN/ACL), gestion des correctifs et supervision. À l’aise en production, rigoureux, esprit d’analyse, travail en équipe.",
     location: "Rennes, France",
+    location_label: "Localisation",
     languages: "Français (Natif) • Anglais (C1)",
+    languages_label: "Langues",
     availability: "Recherche alternance 2026–2028",
     availability_detail: "Master Cybersécurité — M1/M2",
     driving: "Permis B",
+    driving_label: "Mobilité",
     remote: "Télétravail ou présentiel",
+    remote_label: "Mode de travail",
   },
   skills: {
     title: "Compétences",

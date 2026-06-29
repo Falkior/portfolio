@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,6 +10,12 @@ const inter = Inter({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-display",
+  subsets: ["latin"],
+  axes: ["opsz"],
 });
 
 export const metadata: Metadata = {
@@ -33,12 +39,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen font-sans antialiased">
+    <html
+      lang="en"
+      className={`${inter.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}
+    >
+      <body className="min-h-screen bg-bg font-sans text-ink antialiased">
         {children}
-        <div className="fixed inset-0 z-[9997] scanlines" aria-hidden="true" />
-        <div className="grain" aria-hidden="true" />
-        <div className="fixed inset-0 z-[9999] crt-vignette" aria-hidden="true" />
       </body>
     </html>
   );

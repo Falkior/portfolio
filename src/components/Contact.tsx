@@ -5,7 +5,6 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { useLanguage } from "@/i18n/useLanguage";
 import SectionWrapper from "./SectionWrapper";
-import TerminalWindow from "@/components/effects/TerminalWindow";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function Contact() {
@@ -17,14 +16,14 @@ export default function Contact() {
     () => {
       if (reducedMotion) return;
 
-      const lines = contentRef.current?.querySelectorAll(".terminal-line");
+      const lines = contentRef.current?.querySelectorAll(".contact-line");
       if (!lines) return;
 
       gsap.from(lines, {
         opacity: 0,
-        x: -10,
+        y: 30,
         stagger: 0.1,
-        duration: 0.5,
+        duration: 0.6,
         ease: "power2.out",
         scrollTrigger: {
           trigger: contentRef.current,
@@ -73,45 +72,43 @@ export default function Contact() {
   ];
 
   return (
-    <SectionWrapper id="contact">
-      <h2 className="section-title reveal">{t.contact.title}</h2>
-
-      <TerminalWindow title="connect.sh" className="reveal">
-        <div ref={contentRef} className="space-y-4">
-          <p className="contact-line text-center text-sm text-gray-400 md:text-base">
+    <SectionWrapper id="contact" index="06" label={t.nav.contact}>
+      <div ref={contentRef} className="grid gap-16 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <h2 className="contact-line section-title mb-8">
+            {t.contact.title}
+          </h2>
+          <p className="contact-line max-w-xl text-lg leading-relaxed text-ink/70 md:text-xl">
             {t.contact.subtitle}
           </p>
+        </div>
 
-          <div className="mx-auto flex max-w-xl flex-col gap-2">
+        <div className="lg:col-span-5">
+          <div className="space-y-0">
             {links.map((link) => (
               <a
                 key={link.method}
                 href={link.href}
                 target={link.href.startsWith("mailto") ? undefined : "_blank"}
                 rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                className="contact-line group flex items-center gap-4 rounded border border-white/5 bg-white/[0.02] px-4 py-3 text-gray-300 transition-all hover:border-matrix/20 hover:bg-matrix/5 hover:text-matrix terminal-line"
+                className="contact-line group flex items-center justify-between border-t border-line py-5 transition-colors hover:bg-card/30"
               >
-                <span className="text-dim group-hover:text-matrix">{link.icon}</span>
-                <div className="min-w-0 flex-1">
-                  <div className="font-mono text-xs text-dim">
-                    <span className="text-matrix">$</span> connect --method{" "}
-                    {link.method}
-                  </div>
-                  <div className="truncate font-mono text-sm">
-                    <span className="text-matrix">{"> "}</span>
-                    {link.value}
-                  </div>
-                </div>
+                <span className="flex items-center gap-4 text-muted transition-colors group-hover:text-ink">
+                  {link.icon}
+                  <span className="font-mono text-sm">{link.label}</span>
+                </span>
+                <span className="link-wipe hidden font-mono text-sm md:inline-flex">
+                  {link.value}
+                  <span aria-hidden="true">↗</span>
+                </span>
               </a>
             ))}
+            <div className="border-t border-line" />
           </div>
         </div>
-      </TerminalWindow>
+      </div>
 
-      <footer className="contact-line mt-20 border-t border-white/5 pt-8 text-center font-mono text-xs text-dim">
-        william@portfolio:~$ exit
-        <span className="ml-1 inline-block h-3 w-2 animate-pulse bg-matrix align-middle" />
-        <br />
+      <footer className="contact-line mt-24 border-t border-line pt-8 text-center font-mono text-xs text-muted">
         {t.contact.footer.replace("{year}", new Date().getFullYear().toString())}
       </footer>
     </SectionWrapper>

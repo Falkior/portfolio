@@ -5,7 +5,6 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { useLanguage } from "@/i18n/useLanguage";
 import SectionWrapper from "./SectionWrapper";
-import TerminalWindow from "@/components/effects/TerminalWindow";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function About() {
@@ -37,47 +36,48 @@ export default function About() {
   );
 
   const facts = [
-    { key: "location", prefix: ">", value: t.about.location },
-    { key: "languages", prefix: "$", value: t.about.languages },
-    { key: "driving", prefix: "#", value: t.about.driving },
-    { key: "remote", prefix: ">", value: t.about.remote },
+    { label: t.about.location_label, value: t.about.location },
+    { label: t.about.languages_label, value: t.about.languages },
+    { label: t.about.driving_label, value: t.about.driving },
+    { label: t.about.remote_label, value: t.about.remote },
   ];
 
   return (
-    <SectionWrapper id="about">
-      <h2 className="section-title reveal">{t.about.title}</h2>
-
-      <div ref={contentRef} className="grid gap-8 md:grid-cols-3">
-        <div className="md:col-span-2">
-          <TerminalWindow title="about.txt">
-            <p className="about-line mb-6 text-sm leading-relaxed text-gray-300 md:text-base">
-              {t.about.description}
-            </p>
-            <div className="about-line inline-flex items-center gap-3 rounded border border-matrix/20 bg-matrix/5 px-4 py-3">
-              <span className="relative flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-matrix opacity-75" />
-                <span className="relative inline-flex h-3 w-3 rounded-full bg-matrix" />
-              </span>
-              <div>
-                <p className="font-mono text-sm font-semibold text-matrix">
-                  {t.about.availability}
-                </p>
-                <p className="text-xs text-dim">{t.about.availability_detail}</p>
-              </div>
-            </div>
-          </TerminalWindow>
+    <SectionWrapper id="about" index="01" label={t.about.title}>
+      <div ref={contentRef} className="grid gap-12 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <p className="about-line text-2xl leading-snug text-ink md:text-3xl lg:text-4xl">
+            {t.about.description}
+          </p>
         </div>
 
-        <div className="space-y-3">
-          {facts.map((fact) => (
-            <div
-              key={fact.key}
-              className="about-line flex items-center gap-3 rounded border border-white/5 bg-white/[0.02] px-4 py-3 terminal-line"
-            >
-              <span className="font-mono text-matrix">{fact.prefix}</span>
-              <span className="text-sm text-gray-300">{fact.value}</span>
+        <div className="lg:col-span-5">
+          <div className="about-line mb-8 flex items-start gap-4 border-b border-line pb-6">
+            <span className="relative mt-2 flex h-2.5 w-2.5 flex-shrink-0">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
+            </span>
+            <div>
+              <p className="font-mono text-sm font-medium text-accent">
+                {t.about.availability}
+              </p>
+              <p className="text-sm text-muted">{t.about.availability_detail}</p>
             </div>
-          ))}
+          </div>
+
+          <dl className="space-y-0">
+            {facts.map((fact) => (
+              <div
+                key={fact.label}
+                className="about-line flex justify-between border-b border-line py-4"
+              >
+                <dt className="font-mono text-xs uppercase tracking-wider text-muted">
+                  {fact.label}
+                </dt>
+                <dd className="text-sm text-ink">{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </SectionWrapper>

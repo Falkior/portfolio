@@ -29,9 +29,9 @@ export const projects: Project[] = [
     id: "portfolio",
     title: "Portfolio Website",
     description:
-      "My personal portfolio with a Matrix/hacker aesthetic. Features a falling Matrix rain canvas, GSAP-powered scroll animations, Lenis smooth scrolling, terminal-style UI, glitch effects, custom cursor, CRT scanlines, and bilingual FR/EN support.",
+      "My personal portfolio with a modern editorial aesthetic. Features a warm-light palette, Fraunces/Inter type pairing, GSAP scroll reveals, Lenis smooth scrolling, a refined custom cursor, an infinite skills marquee, and bilingual FR/EN support.",
     descriptionFr:
-      "Mon portfolio personnel avec une esthétique Matrix/hacker. Inclut une pluie de caractères Matrix en canvas, animations GSAP au scroll, défilement fluide Lenis, interface style terminal, effets glitch, curseur personnalisé, scanlines CRT et support bilingue FR/EN.",
+      "Mon portfolio personnel avec une esthétique éditoriale moderne. Inclut une palette chaude, un duo typographique Fraunces/Inter, révélations GSAP au scroll, défilement fluide Lenis, curseur personnalisé affiné, marquee infini des compétences et support bilingue FR/EN.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Lenis", "Framer Motion"],
     github: "https://github.com/Falkior/portfolio",
     featured: true,
