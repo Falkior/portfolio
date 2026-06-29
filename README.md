@@ -13,7 +13,8 @@ I'm a cybersecurity student at Ynov Campus Rennes, currently seeking a **Master-
 - **Next.js 16** — React framework with App Router and static generation
 - **React 19** — UI library
 - **TypeScript** — End-to-end type safety
-- **Tailwind CSS v4** — Utility-first styling with a custom Matrix/hacker theme
+- **Tailwind CSS v4** — Utility-first styling with a warm-light editorial theme
+- **Fraunces / Inter / JetBrains Mono** — Display serif, body, and monospace label typography
 - **GSAP + ScrollTrigger** — High-performance scroll and entrance animations
 - **Lenis** — Smooth inertia scrolling
 - **Framer Motion** — Mobile menu exit animations
@@ -23,11 +24,11 @@ I'm a cybersecurity student at Ynov Campus Rennes, currently seeking a **Master-
 - **Single-page design** — Smooth-scrolling sections: Hero, About, Skills, Experience, Education, Projects, Contact
 - **Bilingual (FR/EN)** — French by default with full English translation toggle and localStorage persistence
 - **Responsive** — Mobile-first layout with adaptive navigation
-- **Matrix/hacker UI** — True black background, neon green (#00ff41) accents, Matrix rain canvas, CRT scanlines, film grain, and vignette effects
-- **Terminal-style sections** — Command-prompt aesthetics, terminal windows, progress bars, and monospace typography
-- **Custom cursor** — Dot + ring follower on pointer devices
-- **Glitch text** — Periodic glitch effect on the name
-- **Preloader** — Matrix rain loading screen on first visit
+- **Editorial design** — Warm cream (#F4F1EA) background, ink (#1A1A1A) type, cobalt (#2945FF) accent, generous whitespace, and hairline dividers
+- **Display typography** — Oversized Fraunces serif headings paired with monospace micro-labels for section indices, tags, and dates
+- **Balanced motion** — Hero mask reveal, scroll-triggered fade-ins, and underline-wipe link hovers
+- **Custom cursor** — Minimal follower on pointer devices that grows over links
+- **Preloader** — Minimal editorial loading screen on first visit
 - **Reduced motion support** — Static fallbacks when `prefers-reduced-motion` is enabled
 - **Data-driven projects** — Add new projects by editing a single TypeScript file
 
@@ -37,7 +38,7 @@ I'm a cybersecurity student at Ynov Campus Rennes, currently seeking a **Master-
 src/
 ├── app/                # Next.js App Router (layout, page, styles)
 ├── components/         # React components for each section
-│   └── effects/        # MatrixRain, CustomCursor, GlitchText, TerminalWindow, Preloader
+│   └── effects/        # CustomCursor, Preloader
 ├── data/               # Project entries (projects.ts)
 ├── hooks/              # Shared React hooks (useReducedMotion)
 ├── i18n/               # Translations (en.ts, fr.ts) and language context
@@ -55,9 +56,12 @@ Edit `src/data/projects.ts` and add an entry to the array:
   description: "What it does.",
   descriptionFr: "Ce que ça fait.",
   tags: ["Python", "Cybersecurity"],
+  image: "/projects/my-project.png",
   github: "https://github.com/Falkior/my-project",
 }
 ```
+
+Drop the preview image in `public/projects/` and reference it via the `image` field — it renders on the left side of the project card.
 
 ## Run Locally
 

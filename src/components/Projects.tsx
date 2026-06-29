@@ -72,7 +72,7 @@ export default function Projects() {
             <div className="grid gap-8 lg:grid-cols-12">
               <div className="lg:col-span-5">
                 {project.image && (
-                  <div className="relative aspect-[16/10] overflow-hidden rounded bg-card-alt">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded border border-line bg-card-alt">
                     <Image
                       src={project.image}
                       alt={project.title}
