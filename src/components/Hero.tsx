@@ -93,7 +93,7 @@ export default function Hero({ loaded = false }: HeroProps) {
           {t.hero.greeting}
         </span>
 
-        <h1 ref={nameRef} className="hero-name mb-8 opacity-0" aria-label={t.hero.name}>
+        <h1 ref={nameRef} className="hero-name mb-8" aria-label={t.hero.name}>
           {nameChars.map((char, i) => (
             <span
               key={i}
