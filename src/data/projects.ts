@@ -1,6 +1,7 @@
 export interface Project {
   id: string;
   title: string;
+  titleFr?: string;
   description: string;
   descriptionFr?: string;
   tags: string[];
@@ -28,11 +29,13 @@ export const projects: Project[] = [
   {
     id: "pentest-access-control",
     title: "Physical Access Control Pentest",
+    titleFr: "Pentest de contrôle d'accès physique",
     description:
       "Supervised pentest project (Ynov): bypassed a badge reader and a connected lock (Raspberry Pi) through fuzzing, SQL injection, and crafting a valid payload to unlock the door. Analyzed and cloned RFID/NFC badges — UID rewriting on Mifare Classic — and identified non-bypassable protections: hardware-burned UID (locked block 0) and Mifare DESFire EV1-3 encryption.",
     descriptionFr:
       "Projet de pentest encadré (Ynov) : contournement d'un lecteur de badge et d'une serrure connectée (Raspberry Pi) via fuzzing, injection SQL et envoi de payload valide pour déverrouiller la porte. Analyse et clonage de badges RFID/NFC — réécriture d'UID sur Mifare Classic — et identification des protections non contournables : UID gravé matériellement (bloc 0 verrouillé) et chiffrement Mifare DESFire EV1-3.",
     tags: ["Pentest", "RFID/NFC", "Raspberry Pi", "SQL Injection", "Fuzzing", "Mifare"],
+    image: "/projects/pentest-access-control.png",
     featured: true,
   },
   {
@@ -43,6 +46,7 @@ export const projects: Project[] = [
     descriptionFr:
       "Scanner d'audit réseau (Flask + Django, Docker) : détection de ports via nmap et test d'accès anonymes SMB/FTP/LDAP avec scoring de risque automatisé.",
     tags: ["Python", "Flask", "Django", "Docker", "nmap"],
+    image: "/projects/les-ptit-curieux.png",
     github: "https://github.com/Falkior/les-ptit-curieux",
     featured: true,
   },

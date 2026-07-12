@@ -86,7 +86,9 @@ export default function Projects() {
               <div className="flex flex-col justify-between lg:col-span-7">
                 <div>
                   <h3 className="mb-3 font-display text-3xl text-ink md:text-4xl">
-                    {project.title}
+                    {lang === "fr" && project.titleFr
+                      ? project.titleFr
+                      : project.title}
                   </h3>
                   <p className="mb-6 max-w-xl text-sm leading-relaxed text-ink/70 md:text-base">
                     {lang === "fr" && project.descriptionFr
