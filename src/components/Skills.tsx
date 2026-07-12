@@ -9,8 +9,28 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const skillCategories = [
   {
-    key: "development" as const,
-    items: ["Java", "C++", "Python", "HTML/CSS", "TypeScript", "SQL"],
+    key: "offensive" as const,
+    items: [
+      "CTF",
+      "WiFi Audit (wifite)",
+      "WEP / WPA2",
+      "Physical Access Pentest",
+      "Wireshark",
+      "nmap",
+      "HackTheBox",
+    ],
+  },
+  {
+    key: "defensive" as const,
+    items: [
+      "fail2ban",
+      "iptables",
+      "Rate Limiting",
+      "nginx (Reverse Proxy)",
+      "OpenVPN",
+      "Patch Management",
+      "Monitoring",
+    ],
   },
   {
     key: "systems" as const,
@@ -18,23 +38,30 @@ const skillCategories = [
       "Windows Server",
       "Linux (Debian/Ubuntu)",
       "DHCP/DNS",
-      "VLAN/ACL",
-      "VMware",
-      "VirtualBox",
+      "VLAN",
       "Active Directory",
       "GPO/MFA",
+      "Docker",
+      "VMware / VirtualBox",
+      "Zabbix",
+      "Grafana",
+      "Raspberry Pi",
     ],
   },
   {
-    key: "cybersecurity" as const,
+    key: "development" as const,
     items: [
-      "Wireshark",
-      "nmap",
-      "HackTheBox",
-      "Metasploit",
-      "Vulnerability Analysis",
-      "Risk Assessment",
-      "Patch Management",
+      "Java",
+      "C++",
+      "Python",
+      "TypeScript",
+      "Node.js",
+      "Next.js",
+      "HTML/CSS",
+      "SQL / NoSQL",
+      "Flask / Django",
+      "Bash / PowerShell",
+      "Git",
     ],
   },
   {
@@ -43,10 +70,11 @@ const skillCategories = [
       "VS Code",
       "Eclipse",
       "IntelliJ IDEA",
-      "Git",
-      "Unity 3D",
-      "Notion",
+      "GitHub",
       "Office 365",
+      "Google Workspace",
+      "Notion",
+      "Slack",
     ],
   },
 ];
@@ -97,7 +125,7 @@ export default function Skills() {
   return (
     <SectionWrapper id="skills" index="02" label={t.skills.title}>
       <div ref={containerRef}>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((cat) => (
             <div key={cat.key} className="skill-group">
               <h3 className="mb-4 font-mono text-xs uppercase tracking-wider text-muted">

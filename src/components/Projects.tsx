@@ -39,7 +39,7 @@ export default function Projects() {
 
   if (projects.length === 0) {
     return (
-      <SectionWrapper id="projects" index="05" label={t.projects.title}>
+      <SectionWrapper id="projects" index="06" label={t.projects.title}>
         <div className="mx-auto max-w-md rounded border border-dashed border-line bg-card p-12 text-center reveal">
           <p className="mb-2 font-display text-xl text-ink">
             {t.projects.empty}
@@ -62,7 +62,7 @@ export default function Projects() {
   }
 
   return (
-    <SectionWrapper id="projects" index="05" label={t.projects.title}>
+    <SectionWrapper id="projects" index="06" label={t.projects.title}>
       <div ref={containerRef} className="space-y-0">
         {projects.map((project) => (
           <article

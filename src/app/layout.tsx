@@ -21,7 +21,7 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: "William Couedon — Cybersecurity & IT Portfolio",
   description:
-    "Cybersecurity student and IT engineer. Windows/Linux hardening, network segmentation, full-stack development. Seeking alternance M1-M2 2026-2028.",
+    "Cybersecurity student with an offensive & defensive profile. CTF, pentesting, Windows/Linux hardening, network segmentation, full-stack development. Seeking alternance M1-M2 2026-2028.",
   keywords: [
     "cybersecurity",
     "IT",
@@ -29,6 +29,8 @@ export const metadata: Metadata = {
     "William Couedon",
     "alternance",
     "security",
+    "pentest",
+    "CTF",
     "developer",
   ],
 };

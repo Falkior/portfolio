@@ -9,6 +9,7 @@ const sections = [
   "skills",
   "experience",
   "education",
+  "certifications",
   "projects",
   "contact",
 ] as const;

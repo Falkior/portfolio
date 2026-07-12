@@ -72,7 +72,7 @@ export default function Contact() {
   ];
 
   return (
-    <SectionWrapper id="contact" index="06" label={t.nav.contact}>
+    <SectionWrapper id="contact" index="07" label={t.nav.contact}>
       <div ref={contentRef} className="grid gap-16 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <h2 className="contact-line section-title mb-8">

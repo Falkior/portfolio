@@ -6,32 +6,33 @@ export const fr: Translations = {
     skills: "Compétences",
     experience: "Expérience",
     education: "Formation",
+    certifications: "Certifications",
     projects: "Projets",
     contact: "Contact",
   },
   hero: {
     greeting: "Bonjour, je suis",
     name: "William Couedon",
-    subtitle: "Étudiant Cybersécurité & Ingénieur IT",
+    subtitle: "Étudiant Cybersécurité — Profil offensif & défensif",
     tagline:
-      "Durcissement Windows/Linux • Segmentation réseau • Analyse de vulnérabilités • Développement full-stack",
+      "CTF & pentest • Durcissement Windows/Linux • Segmentation réseau • Défense d’infrastructure • Développement full-stack",
     cta_work: "Voir mes projets",
     cta_contact: "Me contacter",
     scroll_down: "défiler vers le bas",
   },
   about: {
     title: "À propos",
-    lead: "Étudiant en cybersécurité avec une expérience concrète en administration systèmes et développement full-stack.",
+    lead: "Étudiant en Bachelor 3 Cybersécurité avec 1 an d’expérience en administration et sécurisation de parc en production.",
     paragraphs: [
-      "Compétent en durcissement Windows/Linux, gestion Active Directory & GPO/MFA, segmentation réseau (VLAN/ACL), gestion des correctifs et supervision.",
-      "À l’aise en production, rigoureux, esprit d’analyse, travail en équipe.",
+      "Profil offensif & défensif : CTF inter-écoles, audits WiFi, pentest de contrôle d’accès physique d’un côté ; durcissement d’infrastructure (fail2ban, iptables, reverse proxy), GPO/MFA, segmentation réseau (VLAN) et patch management de l’autre.",
+      "À l’aise en production, rigoureux, autonome, travail en équipe. Veille sécurité active (blog, posts) et CTF en équipe.",
     ],
     location: "Rennes, France",
     location_label: "Localisation",
     languages: "Français (Natif) • Anglais (C1)",
     languages_label: "Langues",
     availability: "Recherche alternance 2026–2028",
-    availability_detail: "Master Cybersécurité — M1/M2",
+    availability_detail: "Master Cybersécurité — M1/M2 (sept. 2026)",
     driving: "Permis B",
     driving_label: "Mobilité",
     remote: "Présentiel ou télétravail",
@@ -39,9 +40,10 @@ export const fr: Translations = {
   },
   skills: {
     title: "Compétences",
-    development: "Développement",
+    offensive: "Cybersécurité — Offensive",
+    defensive: "Cybersécurité — Défensive",
     systems: "Systèmes & Réseaux",
-    cybersecurity: "Cybersécurité",
+    development: "Développement",
     tools: "Outils & Environnements",
   },
   experience: {
@@ -49,35 +51,32 @@ export const fr: Translations = {
     jobs: [
       {
         role: "Stage Développeur Full-stack",
-        company: "RECUBE",
+        company: "WEBNATIONS",
         location: "Montpellier, France",
         dates: "Avr 2026 – Juin 2026",
         bullets: [
-          "Développement d’une application web générant automatiquement des fichiers JSON et archives ZIP compatibles Minecraft Bedrock, avec upload et validation de textures.",
-          "Utilisation d’outils collaboratifs en environnement professionnel (Notion, Slack).",
+          "Génération automatisée de fichiers (JSON/ZIP), upload et validation d’intégrité, pour l’écosystème Minecraft Bedrock.",
         ],
       },
       {
-        role: "Technicien d’administration et maintenance informatique",
+        role: "Reconversion vers la cybersécurité",
+        company: "Formation autodidacte",
+        location: "Rennes, France",
+        dates: "Déc 2024 – Sept 2025",
+        bullets: [
+          "Recherche et intégration d’un cursus cyber. Montée en compétences autodidacte : CTF, labs pratiques.",
+        ],
+      },
+      {
+        role: "Technicien d’administration et maintenance de parc informatique (CDD)",
         company: "Université de Rennes",
         location: "Saint-Malo, France",
         dates: "Déc 2023 – Déc 2024",
         bullets: [
-          "Mise en place GPO/MFA et durcissement Windows (droits locaux, journaux).",
-          "Segmentation (VLAN/ACL) & durcissement d’équipements — isolation des services critiques.",
+          "Mise en place GPO/MFA et durcissement Windows (droits locaux, journaux) sur 200 postes.",
+          "Segmentation (VLAN) & durcissement d’équipements — isolation des services critiques.",
           "Patch management postes/serveurs, suivi de conformité.",
           "VMware/VirtualBox : sandbox de tests internes & validation de correctifs.",
-        ],
-      },
-      {
-        role: "Stage Informaticien",
-        company: "Easy Cash",
-        location: "Dinan, France",
-        dates: "Janv. 2020 – Mars 2020",
-        bullets: [
-          "Gestion de la maintenance préventive et corrective d’une vingtaine d’ordinateurs.",
-          "Installation et configuration de logiciels et systèmes d’exploitation.",
-          "Diagnostic des pannes et mise en place de solutions adaptées.",
         ],
       },
     ],
@@ -111,6 +110,21 @@ export const fr: Translations = {
       },
     ],
   },
+  certifications: {
+    title: "Certifications",
+    items: [
+      {
+        name: "Python (Basic) & Problem Solving (Basic)",
+        issuer: "HackerRank",
+        year: "2026",
+      },
+      {
+        name: "PSE1 / PSE2 — Secourisme",
+        issuer: "C.F.S.35",
+        year: "2018",
+      },
+    ],
+  },
   projects: {
     title: "Projets",
     empty: "D’autres projets arrivent bientôt...",
@@ -121,7 +135,7 @@ export const fr: Translations = {
   contact: {
     title: "Restons en contact",
     subtitle:
-      "Je recherche actuellement une alternance en cybersécurité (M1–M2) à partir de septembre 2026. N’hésitez pas à me contacter !",
+      "Je recherche actuellement une alternance en cybersécurité (M1–M2) à partir de septembre 2026. N’hésitez pas à me contacter !",
     email: "Envoyer un email",
     footer: "© {year} William Couedon. Tous droits réservés.",
   },
