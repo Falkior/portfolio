@@ -2,7 +2,8 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap";
+import { revealItems } from "@/lib/reveal";
+import { useLanguage } from "@/i18n/useLanguage";
 import type { ReactNode } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -27,6 +28,7 @@ export default function SectionWrapper({
 }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
+  const { lang } = useLanguage();
   const titleId = headingId ?? `${id}-title`;
 
   useGSAP(
@@ -38,20 +40,9 @@ export default function SectionWrapper({
       ) as NodeListOf<HTMLElement>;
       if (!elements || elements.length === 0) return;
 
-      gsap.from(elements, {
-        y: 60,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      });
+      revealItems(elements, { y: 24 });
     },
-    { scope: sectionRef }
+    { scope: sectionRef, dependencies: [lang, reducedMotion], revertOnUpdate: true }
   );
 
   return (
@@ -59,10 +50,10 @@ export default function SectionWrapper({
       ref={sectionRef}
       id={id}
       aria-labelledby={label || headingId ? titleId : undefined}
-      className={`px-6 py-24 md:px-12 lg:px-24 ${className}`}
+      className={`px-6 py-12 md:px-12 md:py-16 lg:px-24 lg:py-20 ${className}`}
     >
       <div className="mx-auto max-w-6xl">
-        {divider && <div className="mb-16 border-t border-line" />}
+        {divider && <div className="mb-8 border-t md:mb-10 border-line" />}
         {(index || label) && (
           <div className="mb-8 flex items-baseline gap-4 reveal">
             {index && <span className="eyebrow text-accent">{index}</span>}

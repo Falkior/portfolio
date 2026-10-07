@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap";
+import { revealItems } from "@/lib/reveal";
 import Image from "next/image";
 import { useLanguage } from "@/i18n/useLanguage";
 import { projects } from "@/data/projects";
@@ -21,20 +21,9 @@ export default function Projects() {
       const cards = containerRef.current?.querySelectorAll(".project-card");
       if (!cards) return;
 
-      gsap.from(cards, {
-        opacity: 0,
-        y: 40,
-        stagger: 0.1,
-        duration: 0.7,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      });
+      revealItems(cards);
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [lang, reducedMotion], revertOnUpdate: true }
   );
 
   if (projects.length === 0) {

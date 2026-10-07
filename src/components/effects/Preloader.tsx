@@ -38,7 +38,12 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       return () => clearTimeout(skipTimer);
     }
 
-    const duration = reducedMotion ? 200 : 2200;
+    if (reducedMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const skipTimer = setTimeout(() => setShow(false), 0);
+      return () => clearTimeout(skipTimer);
+    }
+
+    const duration = 2200;
     const steps = 60;
     const interval = duration / steps;
 
@@ -48,20 +53,21 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       setCounter(Math.min(Math.round(current), 100));
     }, interval);
 
+    let finishTimer: ReturnType<typeof setTimeout> | undefined;
     const exitTimer = setTimeout(
       () => {
         setExiting(true);
-        setTimeout(() => {
+        finishTimer = setTimeout(() => {
           setShow(false);
-          onComplete?.();
         }, 700);
       },
-      reducedMotion ? 200 : 2200
+      duration
     );
 
     return () => {
       clearInterval(timer);
       clearTimeout(exitTimer);
+      clearTimeout(finishTimer);
     };
   }, [show, onComplete, reducedMotion]);
 

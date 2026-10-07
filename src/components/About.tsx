@@ -2,13 +2,13 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap";
+import { revealItems } from "@/lib/reveal";
 import { useLanguage } from "@/i18n/useLanguage";
 import SectionWrapper from "./SectionWrapper";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function About() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const reducedMotion = useReducedMotion();
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -19,20 +19,9 @@ export default function About() {
       const lines = contentRef.current?.querySelectorAll(".about-line");
       if (!lines) return;
 
-      gsap.from(lines, {
-        y: 30,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.6,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      });
+      revealItems(lines);
     },
-    { scope: contentRef }
+    { scope: contentRef, dependencies: [lang, reducedMotion], revertOnUpdate: true }
   );
 
   const facts = [

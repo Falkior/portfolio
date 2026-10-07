@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
+import { revealItems } from "@/lib/reveal";
 import { useLanguage } from "@/i18n/useLanguage";
 import SectionWrapper from "./SectionWrapper";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -27,23 +28,12 @@ export default function Skills() {
 
   useGSAP(
     () => {
-      if (reducedMotion) return;
+      if (reducedMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       const groups = containerRef.current?.querySelectorAll(".skill-group");
       if (!groups) return;
 
-      gsap.from(groups, {
-        opacity: 0,
-        y: 40,
-        stagger: 0.12,
-        duration: 0.7,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      });
+      revealItems(groups);
 
       if (marqueeRef.current) {
         const track = marqueeRef.current.querySelector(".marquee-track");
@@ -87,7 +77,7 @@ export default function Skills() {
 
         <div
           ref={marqueeRef}
-          className="relative mt-20 overflow-hidden border-y border-line py-4"
+          className="relative mt-10 overflow-hidden md:mt-14 border-y border-line py-4"
         >
           <div className="marquee-track flex w-max items-center gap-8">
             {[...marqueeItems, ...marqueeItems].map((skill, i) => (

@@ -12,7 +12,7 @@ interface HeroProps {
 }
 
 export default function Hero({ loaded = false }: HeroProps) {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const { scrollTo } = useSmoothScroll();
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
@@ -25,16 +25,10 @@ export default function Hero({ loaded = false }: HeroProps) {
 
   useGSAP(
     () => {
-      if (reducedMotion) {
-        gsap.set(
-          [greetingRef.current, nameRef.current, roleRef.current, taglineRef.current, ctaRef.current, scrollRef.current],
-          { opacity: 1 }
-        );
-        return;
-      }
+      if (!loaded || reducedMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       const ctx = gsap.context(() => {
-        const tl = gsap.timeline({ delay: loaded ? 0.2 : 0 });
+        const tl = gsap.timeline({ delay: 0.15 });
 
         tl.fromTo(
           greetingRef.current,
@@ -75,7 +69,7 @@ export default function Hero({ loaded = false }: HeroProps) {
 
       return () => ctx.revert();
     },
-    { scope: sectionRef, dependencies: [loaded, reducedMotion] }
+    { scope: sectionRef, dependencies: [loaded, lang, reducedMotion], revertOnUpdate: true }
   );
 
   const nameWords = t.hero.name.split(" ");
@@ -88,7 +82,7 @@ export default function Hero({ loaded = false }: HeroProps) {
       <div className="relative z-10 w-full max-w-6xl pt-20">
         <span
           ref={greetingRef}
-          className="eyebrow mb-6 block opacity-0"
+          className="eyebrow mb-6 block"
         >
           {t.hero.greeting}
         </span>
@@ -102,7 +96,6 @@ export default function Hero({ loaded = false }: HeroProps) {
                   <span
                     key={charIndex}
                     className="hero-name-char inline-block"
-                    style={{ opacity: reducedMotion ? 1 : 0 }}
                   >
                     {char}
                   </span>
@@ -114,7 +107,7 @@ export default function Hero({ loaded = false }: HeroProps) {
 
         <p
           ref={roleRef}
-          className="mb-6 max-w-2xl font-mono text-lg text-muted opacity-0 md:text-xl"
+          className="mb-6 max-w-2xl font-mono text-lg text-muted md:text-xl"
         >
           <span className="block">{t.hero.subtitle}</span>
           <span className="mt-2 block text-base md:text-lg">
@@ -124,7 +117,7 @@ export default function Hero({ loaded = false }: HeroProps) {
 
         <p
           ref={taglineRef}
-          className="mb-12 max-w-xl text-base leading-relaxed text-ink/80 opacity-0 md:text-lg"
+          className="mb-12 max-w-xl text-base leading-relaxed text-ink/80 md:text-lg"
         >
           {t.hero.tagline}
         </p>
@@ -149,7 +142,7 @@ export default function Hero({ loaded = false }: HeroProps) {
 
       <div
         ref={scrollRef}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <button
           onClick={() => scrollTo("#about")}

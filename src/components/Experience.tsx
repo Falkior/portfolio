@@ -2,13 +2,13 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap";
+import { revealItems } from "@/lib/reveal";
 import { useLanguage } from "@/i18n/useLanguage";
 import SectionWrapper from "./SectionWrapper";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function Experience() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const reducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -19,20 +19,9 @@ export default function Experience() {
       const items = containerRef.current?.querySelectorAll(".experience-item");
       if (!items) return;
 
-      gsap.from(items, {
-        opacity: 0,
-        y: 40,
-        stagger: 0.15,
-        duration: 0.7,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      });
+      revealItems(items);
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [lang, reducedMotion], revertOnUpdate: true }
   );
 
   return (

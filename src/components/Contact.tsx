@@ -2,13 +2,13 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap";
+import { revealItems } from "@/lib/reveal";
 import { useLanguage } from "@/i18n/useLanguage";
 import SectionWrapper from "./SectionWrapper";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const reducedMotion = useReducedMotion();
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -19,20 +19,9 @@ export default function Contact() {
       const lines = contentRef.current?.querySelectorAll(".contact-line");
       if (!lines) return;
 
-      gsap.from(lines, {
-        opacity: 0,
-        y: 30,
-        stagger: 0.1,
-        duration: 0.6,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      });
+      revealItems(lines);
     },
-    { scope: contentRef }
+    { scope: contentRef, dependencies: [lang, reducedMotion], revertOnUpdate: true }
   );
 
   const links = [
@@ -108,7 +97,7 @@ export default function Contact() {
         </div>
       </div>
 
-      <footer className="contact-line mt-24 border-t border-line pt-8 text-center font-mono text-xs text-muted">
+      <footer className="contact-line mt-12 border-t md:mt-16 border-line pt-8 text-center font-mono text-xs text-muted">
         {t.contact.footer.replace("{year}", new Date().getFullYear().toString())}
       </footer>
     </SectionWrapper>

@@ -42,18 +42,28 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
     instance.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const tick = (time: number) => {
       instance.raf(time * 1000);
-    });
+    };
+    gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
     lenisRef.current = instance;
 
-    requestAnimationFrame(() => {
+    const refreshFrame = requestAnimationFrame(() => {
       ScrollTrigger.refresh();
     });
 
+    let active = true;
+    document.fonts.ready.then(() => {
+      if (active) ScrollTrigger.refresh();
+    });
+
     return () => {
+      active = false;
+      cancelAnimationFrame(refreshFrame);
+      gsap.ticker.remove(tick);
+      instance.off("scroll", ScrollTrigger.update);
       instance.destroy();
       lenisRef.current = null;
     };

@@ -134,8 +134,31 @@ body {
   transform-origin: right;
 }
 
-/* Reduced motion: disable keyframe-driven UI */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .custom-cursor-active,
+  .custom-cursor-active a,
+  .custom-cursor-active button,
+  .custom-cursor-active [data-cursor] {
+    cursor: none;
+  }
+}
+
+/* Keep content readable while motion preferences change or hydrate. */
 @media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .about-line,
+  .skill-group,
+  .experience-item,
+  .education-item,
+  .certification-item,
+  .project-card,
+  .contact-line,
+  .hero-name-char,
+  .hero-cta {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   *,
   *::before,
   *::after {
