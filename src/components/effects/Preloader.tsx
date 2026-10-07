@@ -1,19 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface PreloaderProps {
   onComplete?: () => void;
 }
 
-function getInitialShow() {
-  if (typeof window === "undefined") return false;
-  return !sessionStorage.getItem("portfolio-visited");
-}
-
 export default function Preloader({ onComplete }: PreloaderProps) {
-  const [show, setShow] = useState(getInitialShow);
+  const [show, setShow] = useState(true);
+  const firstVisitRef = useRef<boolean | null>(null);
   const [exiting, setExiting] = useState(false);
   const [counter, setCounter] = useState(0);
   const reducedMotion = useReducedMotion();
@@ -26,7 +22,21 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       return;
     }
 
-    sessionStorage.setItem("portfolio-visited", "true");
+    if (firstVisitRef.current === null) {
+      try {
+        firstVisitRef.current = !sessionStorage.getItem("portfolio-visited");
+        if (firstVisitRef.current) {
+          sessionStorage.setItem("portfolio-visited", "true");
+        }
+      } catch {
+        firstVisitRef.current = true;
+      }
+    }
+
+    if (!firstVisitRef.current) {
+      const skipTimer = setTimeout(() => setShow(false), 0);
+      return () => clearTimeout(skipTimer);
+    }
 
     const duration = reducedMotion ? 200 : 2200;
     const steps = 60;
@@ -59,14 +69,15 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
   return (
     <div
+      aria-hidden="true"
       className={`fixed inset-0 z-[10001] flex flex-col items-center justify-center bg-bg transition-opacity duration-700 ${
         exiting ? "opacity-0" : "opacity-100"
       }`}
     >
       <div className="text-center">
-        <h1 className="font-display text-4xl tracking-tight text-ink md:text-6xl">
+        <p className="font-display text-4xl tracking-tight text-ink md:text-6xl">
           William Couedon
-        </h1>
+        </p>
         <p className="mt-6 font-mono text-sm text-muted">
           {String(counter).padStart(3, "0")}
         </p>

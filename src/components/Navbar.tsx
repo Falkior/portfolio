@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/i18n/useLanguage";
 import { useSmoothScroll } from "@/lib/smooth-scroll";
 
@@ -20,6 +20,29 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const desktopMedia = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    desktopMedia.addEventListener("change", closeOnDesktop);
+    return () => {
+      window.removeEventListener("keydown", closeOnEscape);
+      desktopMedia.removeEventListener("change", closeOnDesktop);
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -49,6 +72,7 @@ export default function Navbar() {
 
   return (
     <nav
+      aria-label={t.nav.navigation}
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
           ? "bg-bg/90 shadow-sm backdrop-blur-md"
@@ -64,11 +88,12 @@ export default function Navbar() {
         </button>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-8 lg:flex">
           {sections.map((id) => (
             <button
               key={id}
               onClick={() => handleScroll(id)}
+              aria-current={active === id ? "location" : undefined}
               className={`group relative font-mono text-sm transition-colors ${
                 active === id
                   ? "text-ink"
@@ -85,6 +110,7 @@ export default function Navbar() {
           ))}
           <button
             onClick={() => setLang(lang === "en" ? "fr" : "en")}
+            aria-label={lang === "fr" ? t.nav.switch_to_english : t.nav.switch_to_french}
             className="font-mono text-xs text-muted transition-colors hover:text-accent"
           >
             {lang === "en" ? "FR" : "EN"}
@@ -92,17 +118,21 @@ export default function Navbar() {
         </div>
 
         {/* Mobile controls */}
-        <div className="flex items-center gap-4 md:hidden">
+        <div className="flex items-center gap-4 lg:hidden">
           <button
             onClick={() => setLang(lang === "en" ? "fr" : "en")}
+            aria-label={lang === "fr" ? t.nav.switch_to_english : t.nav.switch_to_french}
             className="font-mono text-xs text-muted"
           >
             {lang === "en" ? "FR" : "EN"}
           </button>
           <button
+            ref={menuButtonRef}
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex flex-col gap-1.5"
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? t.nav.close_menu : t.nav.open_menu}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
           >
             <span
               className={`block h-px w-6 bg-ink transition-transform ${
@@ -124,23 +154,26 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div className="border-t border-line bg-bg/95 backdrop-blur-md md:hidden">
-          {sections.map((id) => (
-            <button
-              key={id}
-              onClick={() => handleScroll(id)}
-              className={`block w-full px-6 py-3 text-left font-mono text-sm transition-colors ${
-                active === id
-                  ? "text-accent"
-                  : "text-muted hover:text-ink"
-              }`}
-            >
-              {t.nav[id as keyof typeof t.nav]}
-            </button>
-          ))}
-        </div>
-      )}
+      <div
+        id="mobile-navigation"
+        hidden={!menuOpen}
+        className="border-t border-line bg-bg/95 backdrop-blur-md lg:hidden"
+      >
+        {sections.map((id) => (
+          <button
+            key={id}
+            onClick={() => handleScroll(id)}
+            aria-current={active === id ? "location" : undefined}
+            className={`block w-full px-6 py-3 text-left font-mono text-sm transition-colors ${
+              active === id
+                ? "text-accent"
+                : "text-muted hover:text-ink"
+            }`}
+          >
+            {t.nav[id as keyof typeof t.nav]}
+          </button>
+        ))}
+      </div>
     </nav>
   );
 }

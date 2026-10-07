@@ -83,7 +83,6 @@ body {
 /* Link underline wipe */
 .link-wipe {
   position: relative;
-  display: inline-flex;
   align-items: center;
   gap: 0.35em;
   color: var(--ink);

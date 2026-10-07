@@ -6,7 +6,7 @@ Personal portfolio website showcasing my experience in **Cybersecurity**, **IT A
 
 ## About
 
-I'm a cybersecurity student at Ynov Campus Rennes, currently seeking a **Master-level alternance (M1–M2)** starting September 2026. This portfolio highlights my professional experience, technical skills, and projects across IT security and software engineering.
+After completing my third year of the Cybersecurity Bachelor's programme, I am now in **M1 of the Mastère Expert en cybersécurité (Cybersecurity Expert programme)** at Ynov Campus Rennes and an **IT and Cybersecurity Mentor apprentice at Ynov Campus** for both years of the programme (2026–2028). The programme prepares students for the French RNCP40897 Level 7 professional qualification. This portfolio highlights my professional experience, technical skills, and projects across IT security and software engineering.
 
 ## Built With
 

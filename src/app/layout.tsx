@@ -21,7 +21,7 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: "William Couedon — Cybersecurity & IT Portfolio",
   description:
-    "Cybersecurity student with an offensive & defensive profile. CTF, pentesting, Windows/Linux hardening, network segmentation, full-stack development. Seeking alternance M1-M2 2026-2028.",
+    "First-year student in the Cybersecurity Expert programme and IT and Cybersecurity Mentor apprentice at Ynov Campus for 2026–2028. Offensive & defensive security, infrastructure hardening and development.",
   keywords: [
     "cybersecurity",
     "IT",

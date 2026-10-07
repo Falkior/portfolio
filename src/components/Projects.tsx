@@ -50,7 +50,7 @@ export default function Projects() {
               href="https://github.com/Falkior"
               target="_blank"
               rel="noopener noreferrer"
-              className="link-wipe font-mono text-sm"
+              className="link-wipe inline-flex font-mono text-sm"
             >
               GitHub
               <span aria-hidden="true">↗</span>
@@ -75,7 +75,10 @@ export default function Projects() {
                   <div className="relative aspect-[16/10] overflow-hidden rounded border border-line bg-card-alt">
                     <Image
                       src={project.image}
-                      alt={project.title}
+                      alt={t.projects.preview.replace(
+                        "{title}",
+                        lang === "fr" && project.titleFr ? project.titleFr : project.title
+                      )}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -96,7 +99,7 @@ export default function Projects() {
                       : project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
+                    {(lang === "fr" && project.tagsFr ? project.tagsFr : project.tags).map((tag) => (
                       <span
                         key={tag}
                         className="border border-line bg-card px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted"
@@ -112,7 +115,7 @@ export default function Projects() {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="link-wipe font-mono text-sm"
+                      className="link-wipe inline-flex font-mono text-sm"
                     >
                       {t.projects.view_code}
                       <span aria-hidden="true">↗</span>
@@ -123,7 +126,7 @@ export default function Projects() {
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="link-wipe font-mono text-sm text-muted hover:text-ink"
+                      className="link-wipe inline-flex font-mono text-sm text-muted hover:text-ink"
                     >
                       {t.projects.live_demo}
                       <span aria-hidden="true">↗</span>

@@ -5,6 +5,7 @@ export interface Project {
   description: string;
   descriptionFr?: string;
   tags: string[];
+  tagsFr?: string[];
   image?: string;
   github?: string;
   demo?: string;
@@ -31,10 +32,11 @@ export const projects: Project[] = [
     title: "Physical Access Control Pentest",
     titleFr: "Pentest de contrôle d'accès physique",
     description:
-      "Supervised pentest project (Ynov): bypassed a badge reader and a connected lock (Raspberry Pi) through fuzzing, SQL injection, and crafting a valid payload to unlock the door. Analyzed and cloned RFID/NFC badges — UID rewriting on Mifare Classic — and identified non-bypassable protections: hardware-burned UID (locked block 0) and Mifare DESFire EV1-3 encryption.",
+      "Supervised project at Ynov: pentesting a badge reader and a Raspberry Pi connected lock using fuzzing and SQL injection to unlock the door. RFID/NFC badge analysis and cloning, including MIFARE Classic UID rewriting. Protections we did not bypass during the project included a locked UID block 0 and MIFARE DESFire EV1–3 encryption.",
     descriptionFr:
-      "Projet de pentest encadré (Ynov) : contournement d'un lecteur de badge et d'une serrure connectée (Raspberry Pi) via fuzzing, injection SQL et envoi de payload valide pour déverrouiller la porte. Analyse et clonage de badges RFID/NFC — réécriture d'UID sur Mifare Classic — et identification des protections non contournables : UID gravé matériellement (bloc 0 verrouillé) et chiffrement Mifare DESFire EV1-3.",
+      "Projet encadré à Ynov : tests d’intrusion sur un lecteur de badge et une serrure connectée Raspberry Pi, avec ouverture de la porte par fuzzing et injection SQL. Analyse et clonage de badges RFID/NFC, dont la réécriture d’UID sur MIFARE Classic. Les protections que nous n’avons pas contournées dans le cadre du projet incluent le bloc 0 de l’UID verrouillé et le chiffrement MIFARE DESFire EV1–3.",
     tags: ["Pentest", "RFID/NFC", "Raspberry Pi", "SQL Injection", "Fuzzing", "Mifare"],
+    tagsFr: ["Pentest", "RFID/NFC", "Raspberry Pi", "Injection SQL", "Fuzzing", "MIFARE"],
     image: "/projects/pentest-access-control.png",
     featured: true,
   },
@@ -44,7 +46,7 @@ export const projects: Project[] = [
     description:
       "Network audit scanner (Flask + Django, Docker): port detection via nmap and anonymous access testing on SMB/FTP/LDAP services, with automated risk scoring.",
     descriptionFr:
-      "Scanner d'audit réseau (Flask + Django, Docker) : détection de ports via nmap et test d'accès anonymes SMB/FTP/LDAP avec scoring de risque automatisé.",
+      "Scanner d’audit réseau développé avec Flask et Django, et conteneurisé avec Docker. Détection des ports avec nmap, tests d’accès anonymes aux services SMB, FTP et LDAP, et évaluation automatisée des risques.",
     tags: ["Python", "Flask", "Django", "Docker", "nmap"],
     image: "/projects/les-ptit-curieux.png",
     github: "https://github.com/Falkior/les-ptit-curieux",
@@ -52,11 +54,12 @@ export const projects: Project[] = [
   },
   {
     id: "portfolio",
-    title: "Portfolio Website",
+    title: "Personal Portfolio",
+    titleFr: "Portfolio personnel",
     description:
-      "My personal portfolio with a modern editorial aesthetic. Features a warm-light palette, Fraunces/Inter type pairing, GSAP scroll reveals, Lenis smooth scrolling, a refined custom cursor, an infinite skills marquee, and bilingual FR/EN support.",
+      "French and English portfolio built with Next.js and TypeScript, featuring a responsive editorial design, scroll animations and smooth navigation.",
     descriptionFr:
-      "Mon portfolio personnel avec une esthétique éditoriale moderne. Inclut une palette chaude, un duo typographique Fraunces/Inter, révélations GSAP au scroll, défilement fluide Lenis, curseur personnalisé affiné, marquee infini des compétences et support bilingue FR/EN.",
+      "Portfolio bilingue français/anglais développé avec Next.js et TypeScript, avec une interface responsive au style éditorial, des animations au défilement et une navigation fluide.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Lenis", "Framer Motion"],
     image: "/projects/portfolio.png",
     github: "https://github.com/Falkior/portfolio",

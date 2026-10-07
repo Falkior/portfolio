@@ -12,6 +12,7 @@ interface Props {
   className?: string;
   index?: string;
   label?: string;
+  headingId?: string;
   divider?: boolean;
 }
 
@@ -21,10 +22,12 @@ export default function SectionWrapper({
   className = "",
   index,
   label,
+  headingId,
   divider = true,
 }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
+  const titleId = headingId ?? `${id}-title`;
 
   useGSAP(
     () => {
@@ -55,6 +58,7 @@ export default function SectionWrapper({
     <section
       ref={sectionRef}
       id={id}
+      aria-labelledby={label || headingId ? titleId : undefined}
       className={`px-6 py-24 md:px-12 lg:px-24 ${className}`}
     >
       <div className="mx-auto max-w-6xl">
@@ -62,7 +66,11 @@ export default function SectionWrapper({
         {(index || label) && (
           <div className="mb-8 flex items-baseline gap-4 reveal">
             {index && <span className="eyebrow text-accent">{index}</span>}
-            {label && <span className="eyebrow">{label}</span>}
+            {label && (headingId ? (
+              <span className="eyebrow">{label}</span>
+            ) : (
+              <h2 id={titleId} className="eyebrow">{label}</h2>
+            ))}
           </div>
         )}
         {children}

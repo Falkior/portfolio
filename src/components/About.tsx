@@ -39,7 +39,6 @@ export default function About() {
     { label: t.about.location_label, value: t.about.location },
     { label: t.about.languages_label, value: t.about.languages },
     { label: t.about.driving_label, value: t.about.driving },
-    { label: t.about.remote_label, value: t.about.remote },
   ];
 
   return (
@@ -63,10 +62,7 @@ export default function About() {
 
         <div className="lg:col-span-5">
           <div className="about-line mb-8 flex items-start gap-4 border-b border-line pb-6">
-            <span className="relative mt-2 flex h-2.5 w-2.5 flex-shrink-0">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
-            </span>
+            <span aria-hidden="true" className="mt-2 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-accent" />
             <div>
               <p className="font-mono text-sm font-medium text-accent">
                 {t.about.availability}

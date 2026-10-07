@@ -7,83 +7,23 @@ import { useLanguage } from "@/i18n/useLanguage";
 import SectionWrapper from "./SectionWrapper";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const skillCategories = [
-  {
-    key: "offensive" as const,
-    items: [
-      "CTF",
-      "WiFi Audit (wifite)",
-      "WEP / WPA2",
-      "Physical Access Pentest",
-      "Wireshark",
-      "nmap",
-      "HackTheBox",
-    ],
-  },
-  {
-    key: "defensive" as const,
-    items: [
-      "fail2ban",
-      "iptables",
-      "Rate Limiting",
-      "nginx (Reverse Proxy)",
-      "OpenVPN",
-      "Patch Management",
-      "Monitoring",
-    ],
-  },
-  {
-    key: "systems" as const,
-    items: [
-      "Windows Server",
-      "Linux (Debian/Ubuntu)",
-      "DHCP/DNS",
-      "VLAN",
-      "Active Directory",
-      "GPO/MFA",
-      "Docker",
-      "VMware / VirtualBox",
-      "Zabbix",
-      "Grafana",
-      "Raspberry Pi",
-    ],
-  },
-  {
-    key: "development" as const,
-    items: [
-      "Java",
-      "C++",
-      "Python",
-      "TypeScript",
-      "Node.js",
-      "Next.js",
-      "HTML/CSS",
-      "SQL / NoSQL",
-      "Flask / Django",
-      "Bash / PowerShell",
-      "Git",
-    ],
-  },
-  {
-    key: "tools" as const,
-    items: [
-      "VS Code",
-      "Eclipse",
-      "IntelliJ IDEA",
-      "GitHub",
-      "Office 365",
-      "Google Workspace",
-      "Notion",
-      "Slack",
-    ],
-  },
-];
+const skillCategoryKeys = [
+  "offensive",
+  "defensive",
+  "systems",
+  "development",
+  "tools",
+] as const;
 
 export default function Skills() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const reducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
+  const skillCategories = skillCategoryKeys.map((key) => ({
+    key,
+    items: t.skills.items[key],
+  }));
 
   useGSAP(
     () => {
@@ -117,7 +57,7 @@ export default function Skills() {
         }
       }
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [lang, reducedMotion], revertOnUpdate: true }
   );
 
   const marqueeItems = skillCategories.flatMap((cat) => cat.items);

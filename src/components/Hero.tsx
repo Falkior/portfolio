@@ -78,7 +78,7 @@ export default function Hero({ loaded = false }: HeroProps) {
     { scope: sectionRef, dependencies: [loaded, reducedMotion] }
   );
 
-  const nameChars = t.hero.name.split("");
+  const nameWords = t.hero.name.split(" ");
 
   return (
     <section
@@ -94,13 +94,20 @@ export default function Hero({ loaded = false }: HeroProps) {
         </span>
 
         <h1 ref={nameRef} className="hero-name mb-8" aria-label={t.hero.name}>
-          {nameChars.map((char, i) => (
-            <span
-              key={i}
-              className="hero-name-char inline-block"
-              style={{ opacity: reducedMotion ? 1 : 0 }}
-            >
-              {char === " " ? "\u00A0" : char}
+          {nameWords.map((word, wordIndex) => (
+            <span key={wordIndex}>
+              {wordIndex > 0 && " "}
+              <span className="inline-block whitespace-nowrap">
+                {word.split("").map((char, charIndex) => (
+                  <span
+                    key={charIndex}
+                    className="hero-name-char inline-block"
+                    style={{ opacity: reducedMotion ? 1 : 0 }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
             </span>
           ))}
         </h1>
@@ -109,7 +116,10 @@ export default function Hero({ loaded = false }: HeroProps) {
           ref={roleRef}
           className="mb-6 max-w-2xl font-mono text-lg text-muted opacity-0 md:text-xl"
         >
-          {t.hero.subtitle}
+          <span className="block">{t.hero.subtitle}</span>
+          <span className="mt-2 block text-base md:text-lg">
+            {t.hero.position}
+          </span>
         </p>
 
         <p
@@ -119,7 +129,7 @@ export default function Hero({ loaded = false }: HeroProps) {
           {t.hero.tagline}
         </p>
 
-        <div ref={ctaRef} className="flex flex-wrap items-center gap-8 opacity-0">
+        <div ref={ctaRef} className="flex flex-wrap items-center gap-8">
           <button
             onClick={() => scrollTo("#projects")}
             className="hero-cta link-wipe-static font-mono text-sm"
@@ -129,7 +139,7 @@ export default function Hero({ loaded = false }: HeroProps) {
           </button>
           <button
             onClick={() => scrollTo("#contact")}
-            className="hero-cta link-wipe font-mono text-sm text-muted hover:text-ink"
+            className="hero-cta link-wipe inline-flex font-mono text-sm text-muted hover:text-ink"
           >
             {t.hero.cta_contact}
             <span aria-hidden="true">↗</span>

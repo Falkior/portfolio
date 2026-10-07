@@ -36,12 +36,11 @@ export default function Education() {
   );
 
   const getStatus = (idx: number) => {
-    if (idx === 0) return t.education.status_upcoming;
-    if (idx === 1) return t.education.status_in_progress;
+    if (idx === 0) return t.education.status_in_progress;
     return t.education.status_completed;
   };
 
-  const isHighlight = (idx: number) => idx === 0 || idx === 1;
+  const isHighlight = (idx: number) => idx === 0;
 
   return (
     <SectionWrapper id="education" index="04" label={t.education.title}>

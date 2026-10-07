@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { LanguageProvider } from "@/i18n/useLanguage";
 import { SmoothScrollProvider } from "@/lib/smooth-scroll";
 import CustomCursor from "@/components/effects/CustomCursor";
@@ -17,12 +17,13 @@ import Contact from "@/components/Contact";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
+  const handleLoaded = useCallback(() => setLoaded(true), []);
 
   return (
     <LanguageProvider>
       <SmoothScrollProvider>
         <CustomCursor />
-        <Preloader onComplete={() => setLoaded(true)} />
+        <Preloader onComplete={handleLoaded} />
         <Navbar />
         <main>
           <Hero loaded={loaded} />
